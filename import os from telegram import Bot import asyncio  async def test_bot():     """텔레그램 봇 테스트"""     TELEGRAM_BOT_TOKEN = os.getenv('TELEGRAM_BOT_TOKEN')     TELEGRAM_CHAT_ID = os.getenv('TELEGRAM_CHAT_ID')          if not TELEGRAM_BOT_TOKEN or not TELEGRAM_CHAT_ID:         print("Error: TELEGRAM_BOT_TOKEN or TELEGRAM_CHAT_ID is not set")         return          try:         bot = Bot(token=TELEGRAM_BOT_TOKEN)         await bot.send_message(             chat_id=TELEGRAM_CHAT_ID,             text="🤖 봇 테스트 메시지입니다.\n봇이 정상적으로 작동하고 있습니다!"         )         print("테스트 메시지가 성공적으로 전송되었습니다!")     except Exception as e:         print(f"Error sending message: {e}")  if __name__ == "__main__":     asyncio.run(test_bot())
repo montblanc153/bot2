@@ -1,0 +1,25 @@
+import os
+from telegram import Bot
+import asyncio
+
+async def test_bot():
+    """텔레그램 봇 테스트"""
+    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+    
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("Error: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is not set")
+        return
+    
+    try:
+        bot = Bot(token=TELEGRAM_BOT_TOKEN)
+        await bot.send_message(
+            chat_id=TELEGRAM_CHAT_ID,
+            text="🤖 봇 테스트 메시지입니다.\n봇이 정상적으로 작동하고 있습니다!"
+        )
+        print("테스트 메시지가 성공적으로 전송되었습니다!")
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
+if __name__ == "__main__":
+    asyncio.run(test_bot())
